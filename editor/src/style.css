@@ -1,0 +1,588 @@
+:root {
+    --color-light: #CCCCCC;
+    --color-medium-bright: #9a9a9a;
+    --color-medium: #7a7a7a;
+    --color-dark: #595959;
+    --color-darkest: #4D4D4D;
+    --color-black: #323232;
+    --text-color: #F5F5F5;
+
+    /* #7A7A7A */
+    --color-base-r: 122;
+    --color-base-g: 122;
+    --color-base-b: 122;
+
+    /* #CCCCCC */
+    --color-light-r: 204;
+    --color-light-g: 204;
+    --color-light-b: 204;
+
+}
+
+.table-sm th,
+.table-sm td {
+    background-color: var(--color-dark) !important;
+    color: var(--text-color) !important;
+    padding-top: 0 !important;
+    line-height: 1;
+    font-size: clamp(5px, 1vw, 18px);
+}
+
+.table-sm th{
+    width: 30%;
+
+}
+
+.table-sm input {
+    background-color: var(--color-medium) !important;
+    color: var(--text-color) !important;
+    border: none;
+    font-size: clamp(5px, 1vw, 18px);
+}
+
+
+.responsive-inspector{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.py-0{
+    text-align: left;
+
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+
+}
+
+.Inspector-sub-category{
+    background-color: var(--color-dark);
+
+}
+
+.utmost-container-for-attributebox{
+    margin-top: 10px;
+
+}
+
+.center-container-inspector {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+#applyChanges {
+    text-align: center;
+
+}
+
+#exportBtn {
+    transform: scaleX(-1);
+
+}
+
+#exportBtn:hover::after {
+    content: "Render";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    white-space: nowrap;
+    background: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2);
+    color: var(--text-color);
+    z-index: 1000;
+    transform: scaleX(-1);
+  }
+
+  .top-tools-btn {
+    position: relative;
+    background-color: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.8) !important;
+
+  }
+
+  .top-tools-btn:hover {
+      background-color: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 1) !important;
+
+  }
+
+.inspector-dropdown-buttons {
+    position: relative;
+    background-color: var(--color-medium) !important;
+
+}
+
+  /* Fixes icon bug */
+.bi {
+    pointer-events: none;
+}
+
+
+#importBtnDropdown:hover::after {
+    content: "Import";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding: 5px;
+    margin-top: 5px;
+    white-space: nowrap;
+    background: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2);
+    color: var(--text-color);
+    z-index: 1000;
+  }
+
+#showResultBtn:hover::after {
+    content: "Show Result";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding: 5px;
+    margin-top: 5px;
+    white-space: nowrap;
+    background: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2);
+    color: var(--text-color);
+    z-index: 1000;
+}
+
+#lightDropdownBtn:hover::after {
+    content: "Add Lights";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding: 5px;
+    margin-top: 5px;
+    white-space: nowrap;
+    background: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2);
+    color: var(--text-color);
+    z-index: 1000;
+}
+
+#downloadSceneBtn:hover::after {
+    content: "Download Scene";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding: 5px;
+    margin-top: 5px;
+    white-space: nowrap;
+    background: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2);
+    color: var(--text-color);
+    z-index: 1000;
+}
+
+#editor-container {
+    background: var(--color-darkest);
+    display: grid;
+    height: 100vh;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas:
+        "viewport viewport inspector"
+        "overview overview inspector";
+}
+
+#top-tools {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    position: absolute;
+    top: 3%;
+    left: 11%;
+    z-index: 2;
+
+}
+
+#messageList div {
+    animation: fadeIn 1s ease-in, fadeOut 1s ease-out 5s;
+    font-weight: bolder;
+}
+
+#royaltracer-logo {
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    z-index: 2;
+    width: 8%;
+}
+
+#overview {
+    grid-area: overview;
+    background-color: var(--color-darkest);
+    padding: 1% 1% 1% 1%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+}
+
+#buttonList {
+    display: flex;
+    gap: 0.4%;
+    height: 5vw;
+}
+
+#buttonList button {
+    flex: none; /* This will make each button grow and fill the space equally */
+    width: 5vw;
+    height: 5vw;
+    overflow: hidden; /* Prevents the content from spilling out */
+    text-overflow: ellipsis; /* Adds an ellipsis to indicate there is more text that is not visible */
+}
+
+.highlighted {
+    background-color: var(--color-medium) !important;
+
+}
+
+#viewport {
+    grid-area: viewport;
+    background-color: var(--color-darkest);
+    position: relative;
+    padding: 1% 5% 0 12%;
+    z-index: 1;
+}
+
+#inspector {
+    grid-area: inspector;
+    background-color: var(--color-darkest);
+    padding: 5%;
+    overflow-y: scroll;
+}
+
+#threeJsCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-medium);
+    color: var(--text-color);
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.transparency {
+    background-color: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2) !important;
+
+}
+
+.transparency-button {
+    color: var(--text-color) !important;
+    background-color: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.2) !important;
+
+}
+
+.transparency-button:hover {
+    background-color: rgba(var(--color-light-r), var(--color-light-g), var(--color-light-b), 0.2) !important;
+
+}
+
+button:hover {
+    background-color: var(--color-medium);
+}
+
+.top-btn {
+    border-radius: 0;
+}
+
+#showResultBtn {
+    display: none;
+}
+
+/* Positions the content of a dropdown menu. */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hides a dropdown menu content by default. */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--color-dark);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin: 0 5px;
+
+}
+
+/* Buttons inside a dropdown */
+.dropdown-content button {
+    padding: 12px 16px;
+    margin: 5px;
+    text-decoration: none;
+    text-align: left;
+    width: 90%;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {
+    background-color: #5a7896;
+}
+
+.OverviewBtn {
+    background-color: var(--color-dark);
+    border-radius: 3px;
+    font-size: clamp(5px, 1vw, 15px);
+}
+
+.inspector {
+    display: none;
+    color: var(--text-color);
+}
+
+.labelInspector {
+    font-size: clamp(7px, 1.3vw, 20px);
+    text-align: left;
+
+}
+
+.inspectorBtnTop {
+    background-color: var(--color-dark);
+    border-radius: 1px;
+    height: 2rem;
+    margin: 1pt;
+
+}
+
+.inspectorBtnTop i {
+    position: relative;
+    top: -0.5rem;
+}
+
+.inspectorBtnTopTrash {
+    color: red;
+    border: 2px solid red;
+}
+
+.inspectorBtnTopClone {
+    color: aqua;
+    border: 2px solid aqua;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: auto;
+    z-index: 3;
+}
+
+.popup-content {
+    background-color: rgba(var(--color-base-r), var(--color-base-g), var(--color-base-b), 0.7);
+    margin: 2% auto;
+    padding: 20px;
+    border: 1px solid;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color:  var(--color-light);
+}
+
+.popup-controls {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#popupImage {
+    width: 100%;
+    height: auto;
+}
+
+.show {
+    display: block;
+}
+
+.overlay {
+    position: fixed;
+    /* Stay in place */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black with a bit of transparency */
+    z-index: 2;
+    /* Sit on top */
+    cursor: pointer;
+    /* Add a pointer on hover */
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#workspace {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the start */
+    padding: 10px;
+    max-width: 100%; /* Ensures the workspace takes full width */
+}
+
+#itemList {
+    list-style-type: none;
+    padding: 0;
+    width: 100%; /* Full width of the workspace */
+    display: flex; /* Apply Flexbox to the list */
+    flex-wrap: wrap; /* Allow wrapping of items */
+}
+
+#itemList li {
+    flex: 0 0 18%; /* Each item takes up 18% of the list's width */
+    margin: 1%; /* Add some margin for spacing */
+    text-align: center;
+    cursor: pointer;
+}
+
+.item-image {
+    width: 100%; /* Image takes full width of the list item */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+
+    /** set font color to black */
+    color: black;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Define keyframes for the fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Define keyframes for the fade-out animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+.buttonRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+#horizontalAnimatorList{
+    list-style-type: none;
+    padding: 0;
+}
+
+#horizontalList li {
+    display: inline-block; /* Or use 'inline' based on your preference */
+    margin-right: 10px; /* Spacing between items */
+    /* Add more styling as needed */
+}
+
+.animatorBtn{
+    margin-top: 4px;
+    margin-right: 4px;
+}
+
+#animatorElementList{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.animatorElement{
+    margin: 0px 10px 5px 0px;
+    background-color: var(--color-dark);
+    display: grid;
+    padding: 5px;
+    align-content: center;
+}
+

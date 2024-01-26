@@ -1,0 +1,13 @@
+# IDE
+*.idea/
+
+# Build
+*cmake-build-*/
+/editor/dist/
+/editor/src/dist/bundle.js
+/editor/build/
+/editor/editor.spec
+
+# Editor dev server cache
+/editor/src/package-lock.json
+/editor/src/node_modules/

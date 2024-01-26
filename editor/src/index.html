@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Editor Layout</title>
+    <link rel="stylesheet" href="./dist/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="./dist/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<script src="./dist/bootstrap-5.3.2-dist/js/bootstrap.bundle.js"></script>
+<script src="./dist/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
+<script type="module" src="./dist/bundle.js"></script>
+
+<div id="loadingOverlay" class="overlay">
+    <div class="loader"></div>
+</div>
+
+<div id="editor-container">
+    <div id="top-tools">
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-l drop-btn top-tools-btn" id="importBtnDropdown"><i class="bi bi-upload"></i></i></button>
+            <div class="dropdown-content transparency" id="importDropdown">
+                <button class="transparency-button btn" id="ImportSceneBtnYaml">From Yaml</button>
+                <button class="transparency-button btn" id="ImportSceneBtnZip">From Zip</button>
+                <button id="loadDirectoryBtn" class="transparency-button btn" >From Directory</button>
+                <button class="transparency-button btn" id="ImportObjBtn">Object</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-l drop-btn top-tools-btn" id="lightDropdownBtn"><i class="bi bi-plus-square"></i></button>
+            <div class="dropdown-content transparency" id="lightDropdown">
+                <button class="transparency-button btn" id="pointLightBtn">Point Light</button>
+                <button class="transparency-button btn" id="directionalLightBtn">Directional Light</button>
+            </div>
+        </div>
+        <div class="exportTools">
+            <button class="btn btn-secondary btn-l top-tools-btn" id="exportBtn"><i class="bi bi-skip-start-fill"></i>
+            </button>
+            <button class="btn btn-secondary btn-l top-tools-btn" id="showResultBtn"><i class="bi bi-image-fill"></i>
+            </button>
+        </div>
+        <div>
+            <button class="btn btn-secondary btn-l top-tools-btn" id="downloadSceneBtn"><i class="bi bi-file-earmark-arrow-down"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="viewport">
+        <div>
+            <canvas id="threeJsCanvas" width="1920" height="1080"></canvas>
+
+            <div id="toolselection" class="z-0">
+                <div class="tab">
+                    <button class="tablinks" id="overviewTabBtn">Overview</button>
+                    <button class="tablinks" id="workspaceTabBtn">Workspace</button>
+                    <button class="tablinks" id="animatorBtn">Animator</button>
+
+                </div>
+
+                <div id="overviewDiv" style="display: block">
+                    <div id="overview" >
+                        <input type="file" id="sceneInputYaml" accept=".yaml, .yml" style="display: none;">
+                        <input type="file" id="sceneInputZip" accept=".zip" style="display: none;">
+                        <input type="file" id="objInput" accept=".obj" style="display: none;">
+                        <div id="buttonList">
+                            <!-- List of objects in the scene will go here -->
+                        </div>
+                    </div>
+                </div>
+                <div id="workspace" style="display: none;">
+                    <ul id="itemList"></ul>
+                </div>
+                <div id="animator" style="display: none;">
+                    <h3>Select Amount of Frames:</h3>
+                    <input type="number" id="frameInput" placeholder="Enter Amount of Frames">
+
+                    <h3>Select Element to Animate:</h3>
+                    <button id="toggleButton">Show Scene-Elements <i class="bi bi-caret-up-fill"></i></button>
+                    <ul id="horizontalAnimatorList"></ul>
+
+                    <h3>Keyframes:</h3>
+                    <div id="animatorElementList"></div>
+                    <button class="btn btn-secondary btn-l" id="renderAnimationBtn">Render Animation</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <img src="media/Royaltracer.png" id="royaltracer-logo">
+    <div class="container" id="inspector">
+        <div class="inspector" id="currentInspector">
+            <div class="inspector" id="standardInspector">
+                <h4 id="objectNameHeader"></h4>
+                <div class="inspector" id="cloneAndTrashButton">
+                    <div class="responsive-inspector">
+                        <button class="inspectorBtnTop inspectorBtnTopTrash" id="trashBtn" title="trash button"><i
+                                class="bi bi-trash"></i></button>
+                        <button class="inspectorBtnTop inspectorBtnTopClone" id="cloneBtn" title="clone button"><i
+                                class="bi bi-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="utmost-container-for-attributebox">
+                    <label class="labelInspector"><strong id="positionLabel">Position:</strong></label>
+                    <br>
+                    <div class="responsive-inspector Inspector-sub-category">
+                        <table class="table-sm table-borderless table-smaller">
+                            <tbody>
+                            <tr>
+                                <th scope="row" class="py-0">X</th>
+                                <td><input type="number" class="form-control form-control-sm m-0"
+                                           id="positionX"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="py-0">Y</th>
+                                <td><input type="number" class="form-control form-control-sm m-0"
+                                           id="positionY"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="py-0">Z</th>
+                                <td><input type="number" class="form-control form-control-sm m-0"
+                                           id="positionZ"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="center-container-inspector" id="materialInspector">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-l drop-btn top-tools-btn" id="materialDropdownBtn">Texture</button>
+                        <div class="dropdown-content transparency" id="materialDropdown">
+                            <input type="file" id="mtlInput" accept=".mtl" style="display: none;">
+
+                            <!-- List of materials in the scene will go here -->
+
+                            <button id="selectMaterialBtn" class="btn btn-secondary btn-l drop-btn inspector-dropdown-buttons">New Material</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inspector" id="textureInspector">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-l drop-btn top-tools-btn" id="textureDropdownBtn"> Select Textures</button>
+                        <div class="dropdown-content" id="textureDropdown">
+                            <input type="file" id="texInput" accept="image/*" style="display: none;" multiple>
+                            <!-- List of materials in the scene will go here -->
+                            <button id="selectTextureBtn">select new Texture</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inspector utmost-container-for-attributebox" id="objectInspector">
+                    <label class="labelInspector"><strong id="rotationLabel">Rotation:</strong></label>
+                    <br>
+                    <div class="responsive-inspector Inspector-sub-category">
+                        <table class="table-sm table-borderless table-smaller">
+                            <tbody>
+                            <tr>
+                                <th scope="row" class="py-0">X</th>
+                                <td><input type="number" class="form-control form-control-sm m-0"
+                                           id="rotationX"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="py-0">Y</th>
+                                <td><input type="number" class="form-control form-control-sm m-0"
+                                           id="rotationY"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="py-0">Z</th>
+                                <td><input type="number" class="form-control form-control-sm m-0"
+                                           id="rotationZ"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="inspector utmost-container-for-attributebox" id="scaleInspector">
+                <label class="labelInspector"><strong id="scaleLabel">Scale:</strong></label>
+                <br>
+                <div class="responsive-inspector Inspector-sub-category">
+                    <table class="table-sm table-borderless table-smaller">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="py-0">X</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="scaleX"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">Y</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="scaleY"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">Z</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="scaleZ"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="inspector" id="lightInspector">
+                <label class="labelInspector"><strong>Color:</strong></label>
+                <br>
+                <div class="responsive-inspector Inspector-sub-category">
+                    <table class="table-sm table-borderless table-smaller">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="py-0">R:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="colorR"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">G:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="colorG"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">B:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="colorB"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <label class="labelInspector"><strong>Light:</strong></label>
+                <br>
+                <div class="responsive-inspector Inspector-sub-category">
+                    <table class="table-sm table-borderless table-smaller">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="py-0">Intensity:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0"
+                                       id="intensity"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="inspector utmost-container-for-attributebox" id="cameraInspector">
+                <label class="labelInspector"><strong id="cameraSettingsLabel">Camera Settings:</strong></label>
+                <br>
+                <div class="responsive-inspector Inspector-sub-category">
+                    <table class="table-sm table-borderless table-smaller">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="py-0">FOV</th>
+                            <td><input type="number" class="form-control form-control-sm m-0" id="fov"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="inspector utmost-container-for-attributebox" id="raytracerInspector"></div>
+                <label class="labelInspector"><strong id="raytracerSettingsLabel">Raytracer Settings:</strong></label>
+                <br>
+                <div class="responsive-inspector Inspector-sub-category">
+                    <table class="table-sm table-borderless table-smaller">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="py-0">Width:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0" id="width"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">Height:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0" id="height"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">Bounces:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0" id="bounces"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="py-0">Samples:</th>
+                            <td><input type="number" class="form-control form-control-sm m-0" id="samples"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="center-container-inspector utmost-container-for-attributebox">
+            <button id="applyChanges" class="btn btn-secondary btn-l">Apply Changes</button>
+        </div>
+    </div>
+
+    <div id="messageList" class="position-fixed bottom-0 start-0 container z-3">
+
+    </div>
+
+</div>
+
+<div id="resultPopup" class="popup">
+    <div class="popup-content">
+        <div class="popup-controls">
+            <button class="btn btn-secondary btn-l top-tools-btn" id="saveRenderBtn"><i class="bi bi-download"></i>
+            </button>
+            <button class="btn btn-secondary btn-l top-tools-btn" id="closePopup"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <img id="popupImage">
+    </div>
+</div>
+
+<div id="importPopup" class="popup">
+    <div class="popup-content">
+        <button id="closeImportPopup">&times;</button>
+        <div id="objectLoadList">
+            <h2 class="popup-headline">The following objects could not be found in the workspace. Please load them
+                manually.</h2>
+            <ul id="unresolvedObjectList" class="popup-list"></ul>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>
+
+

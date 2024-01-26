@@ -1,0 +1,31 @@
+{
+  "name" : "royal-tracer",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "8eb57355a4ffb410a2e94c07b4dca2dffbee8e50",
+  "dependencies" : [ {
+    "name" : "libpng",
+    "version>=" : "1.6.39#1"
+  }, {
+    "name" : "vcpkg-cmake-config",
+    "version>=" : "2022-02-06#1"
+  }, {
+    "name" : "vcpkg-cmake",
+    "version>=" : "2023-05-04"
+  }, {
+    "name" : "zlib",
+    "version>=" : "1.3"
+  }, {
+    "name" : "crow",
+    "version>=" : "1.0-5",
+    "$comment" : "  # this is heuristically generated, and may not be correct\n\n  find_package(Crow CONFIG REQUIRED)\n\n  target_link_libraries(main PRIVATE Crow::Crow)\n"
+  }, {
+    "name" : "nlohmann-json",
+    "version>=" : "3.11.2"
+  }, {
+    "name" : "opencl",
+    "version>=" : "v2023.02.06#2"
+  }, {
+    "name" : "boost-test",
+    "version>=" : "1.83.0"
+  } ]
+}
