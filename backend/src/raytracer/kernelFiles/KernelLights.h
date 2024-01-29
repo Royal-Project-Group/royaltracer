@@ -22,7 +22,7 @@ float3 sampleLights(
     /*if(hitInfo->brdfType == 1){
         return weightedIntensity;
     }*/
-/*
+
     float totalWeight = 0;
     float probability[MAX_LIGHTS];
     float cumulativeProbability[MAX_LIGHTS];
@@ -56,18 +56,18 @@ float3 sampleLights(
 
     // Get the probability inverse
     float invProb = (1.0f / probability[selectedLightIndex]);
-*/
+
 
 
     //Iterate through all simple light sources and check if there is a intersection with an object between the hitpoint and the light source
-    for (int i = 0; i < bulkData->poiCount; i++) {
+    //for (int i = 0; i < bulkData->poiCount; i++) {
         {
             //Ray for next event estimation
             struct Ray lightRay;
             struct Ray shadowRay;
             lightRay.orig = hitInfo->hitPoint;
             shadowRay.orig = hitInfo->hitPoint;
-            lightRay.dir = bulkData->pointLights[i].position - hitInfo->hitPoint;
+            lightRay.dir = bulkData->pointLights[selectedLightIndex].position - hitInfo->hitPoint;
             lightRay.hit.t = FLT_MAX;
             shadowRay.hit.t = FLT_MAX;
             float lDir = length(lightRay.dir);
@@ -85,7 +85,7 @@ float3 sampleLights(
 
                 if (hitInfo->brdfType == 0 && !hitInfo->insideMaterial) { // Diffuse interaction
                     float angleFactor = dot(lightRay.dir, normalize(hitInfo->hitNormal));
-                    weightedIntensity += (angleFactor * distanceFactor) * bulkData->pointLights[i].Ke;
+                    weightedIntensity += (angleFactor * distanceFactor) * bulkData->pointLights[selectedLightIndex].Ke;
                 } else if (hitInfo->brdfType == 1 && !hitInfo->insideMaterial) { // Specular interaction
                     // Calculate the specular highlight based on the angle between the reflected ray and the light source
                     float angleFactor = fabs(dot(normalize(lightRay.dir), normalize(ray->dir)));
@@ -102,7 +102,7 @@ float3 sampleLights(
                         specularIntensity *= pow(1.0f - angleFactor, roughnessFactor);
                     }
 
-                    weightedIntensity += specularIntensity * distanceFactor * bulkData->pointLights[i].Ke;
+                    weightedIntensity += specularIntensity * distanceFactor * bulkData->pointLights[selectedLightIndex].Ke;
                 } else if (hitInfo->brdfType == 2 && !hitInfo->insideMaterial) { //Refraction
                     //If a refraction occurs, it depends on how the event circumstances are.
                     //Only when exiting a material, the light should have an effect on the ray
@@ -118,9 +118,9 @@ float3 sampleLights(
                         float roughnessFactor = 1.0f - hitInfo->hitMaterial.Ns;
                         specularIntensity *= pow(1.0f - angleFactor, roughnessFactor);
                     }
-                    weightedIntensity += specularIntensity * distanceFactor * bulkData->pointLights[i].Ke;
+                    weightedIntensity += specularIntensity * distanceFactor * bulkData->pointLights[selectedLightIndex].Ke;
                 } else if (hitInfo->brdfType == 4 && !hitInfo->insideMaterial) {
-                    weightedIntensity += distanceFactor * bulkData->pointLights[i].Ke;
+                    weightedIntensity += distanceFactor * bulkData->pointLights[selectedLightIndex].Ke;
                 }
             }
         }
@@ -192,5 +192,4 @@ float3 sampleLights(
         weightedIntensity = (float3)(fabs(weightedIntensity.x), fabs(weightedIntensity.y), fabs(weightedIntensity.z));
         return weightedIntensity;
     }
-}
 #endif //ROYAL_TRACER_KERNELLIGHTS_H
