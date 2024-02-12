@@ -109,9 +109,9 @@ class MTLParser: Parser<std::vector<Material>> { ... }
 ### The Precompute Layer
 The precompute layer is responsible for translating object meshes based on their positions, rotations, and scales. This primary computation is executed on the GPU due to its versatility and speed.
 
-In the precompute kernel, each mesh collects all its triangles into an input buffer for the GPU. Additionally, this input buffer contains the transformation matrix, calculated using MathUtils.cpp. It's worth noting that the rotation follows the same order as Three.js applies it in the web editor.
+In the precompute layer, each mesh collects all its triangles into an input buffer for the GPU. Additionally, this input buffer contains the transformation matrix, calculated using MathUtils.cpp. It's worth noting that the rotation follows the same order as Three.js applies it in the web editor.
 
-Using PrecomputeKernelCommunicator.cpp, data is transferred to the CPU and processed through the OpenCL script transformation.cl.
+Using PrecomputeKernelCommunicator.cpp, data is transferred to the GPU and processed through the OpenCL script transformation.cl.
 
 Within the precompute kernel, transformations are applied in parallel, normal vectors for translated triangles are computed, and essential data such as UV coordinates is retained.
 
